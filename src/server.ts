@@ -16,9 +16,7 @@ async function bootstrap() {
         schema
     })
     
-    const { url } = await server.listen()
-
-    console.log(`Fist Main Back-end ${url}`)
+    await server.listen()
 }
 
 bootstrap()
