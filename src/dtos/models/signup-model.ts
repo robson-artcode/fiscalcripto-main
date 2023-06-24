@@ -6,6 +6,9 @@ export class SignUpModel{
     email: String;
 
     @Field()
+    userName: String;
+
+    @Field()
     firstName: String;
 
     @Field()
@@ -18,5 +21,23 @@ export class SignUpModel{
     phoneNumber: String;
 
     @Field()
+    companyId: Number;
+
+    @Field()
+    isActive: Boolean;
+
+    @Field()
+    isConfirmed: Boolean;
+
+    @Field()
     isNewsLetter: Boolean;
+
+    @Field()
+    isDeleted: Boolean;
+
+    @Field()
+    isSuperUser: Boolean;
+
+    @Field()
+    isStaff: Boolean;
 }

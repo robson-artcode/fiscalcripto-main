@@ -3,6 +3,8 @@ import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
 import "reflect-metadata";
 import { SignUpResolver } from "./resolvers/signup-resolver";
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import type { DocumentNode } from 'graphql';
 
 async function bootstrap() {
 
@@ -13,7 +15,8 @@ async function bootstrap() {
         emitSchemaFile: path.resolve(__dirname, "schema.gql"),
     })
     const server = new ApolloServer({
-        schema
+        schema,
+        context: ({ req: { headers }}) => { return headers },
     })
     
     await server.listen()

@@ -22,10 +22,17 @@ input SignUpInput {
 }
 
 type SignUpModel {
+  companyId: Float!
   documentNumber: String!
   email: String!
   firstName: String!
+  isActive: Boolean!
+  isConfirmed: Boolean!
+  isDeleted: Boolean!
   isNewsLetter: Boolean!
+  isStaff: Boolean!
+  isSuperUser: Boolean!
   lastName: String!
   phoneNumber: String!
+  userName: String!
 }
