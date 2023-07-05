@@ -9,6 +9,9 @@ export class SignUpInput {
     password: String;
 
     @Field()
+    confirmPassword: String;
+
+    @Field()
     firstName: String;
 
     @Field()

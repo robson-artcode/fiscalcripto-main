@@ -12,6 +12,7 @@ type Query {
 }
 
 input SignUpInput {
+  confirmPassword: String!
   documentNumber: String!
   email: String!
   firstName: String!
@@ -26,6 +27,7 @@ type SignUpModel {
   documentNumber: String!
   email: String!
   firstName: String!
+  hasCompletedOnboard: Boolean!
   isActive: Boolean!
   isConfirmed: Boolean!
   isDeleted: Boolean!
@@ -34,5 +36,6 @@ type SignUpModel {
   isSuperUser: Boolean!
   lastName: String!
   phoneNumber: String!
+  typeId: Float!
   userName: String!
 }

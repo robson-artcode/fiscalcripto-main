@@ -17,27 +17,78 @@ model account_user {
   document_number String? @unique @db.VarChar(30)
   phone_number    String? @db.VarChar(16)
 
-  company_id    Int
-  company       account_company @relation(fields: [company_id], references: [id])
-  is_active     Boolean
-  is_confirmed  Boolean
-  is_newsletter Boolean?
-  is_deleted    Boolean
-  is_superuser  Boolean
-  is_staff      Boolean
+  company_id            Int
+  company               account_company @relation(fields: [company_id], references: [id])
+  type_id               Int
+  type                  account_type    @relation(fields: [type_id], references: [id])
+  has_completed_onboard Boolean
+  is_active             Boolean
+  is_confirmed          Boolean
+  is_newsletter         Boolean?
+  is_deleted            Boolean
+  is_superuser          Boolean
+  is_staff              Boolean
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @default(now())
-  deleted_at DateTime? @db.Timestamptz(6)
-  last_login DateTime? @default(now())
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now())
+  deleted_at          DateTime?             @db.Timestamptz(6)
+  last_login          DateTime?             @default(now())
+  date_joined         DateTime?             @default(now())
+  account_userconfirm account_userconfirm[]
+  account_userwizard  account_userwizard[]
+}
+
+model account_userconfirm {
+  id         Int          @id @default(autoincrement())
+  code       String       @unique @db.Uuid
+  user_id    Int          @unique
+  user       account_user @relation(fields: [user_id], references: [id])
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
 }
 
 model account_company {
-  id         Int            @id @default(autoincrement())
-  company    String         @unique @db.VarChar(255)
-  code       String         @unique @db.Uuid
-  front_url  String         @db.VarChar(255)
-  created_at DateTime       @default(now())
-  updated_at DateTime       @default(now())
-  users      account_user[]
+  id                       Int                       @id @default(autoincrement())
+  company                  String                    @unique @db.VarChar(255)
+  code                     String                    @unique @db.Uuid
+  front_url                String                    @db.VarChar(255)
+  created_at               DateTime                  @default(now())
+  updated_at               DateTime                  @default(now())
+  users                    account_user[]
+  account_userwizard       account_userwizard[]
+  account_userwizardconfig account_userwizardconfig?
+}
+
+model account_type {
+  id           Int            @id @default(autoincrement())
+  type         String         @unique @db.VarChar(255)
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now())
+  account_user account_user[]
+}
+
+model account_userwizard {
+  id                        Int             @id @default(autoincrement())
+  cost_calculation          Int
+  pnl_consolidation         Boolean
+  pnl_in_crypto_trades      Boolean
+  one_time_in1888_delay_fee Boolean
+  user_id                   Int
+  user                      account_user    @relation(fields: [user_id], references: [id])
+  company_id                Int             @unique
+  company                   account_company @relation(fields: [company_id], references: [id])
+  created_at                DateTime        @default(now())
+  updated_at                DateTime        @default(now())
+}
+
+model account_userwizardconfig {
+  id                        Int             @id @default(autoincrement())
+  cost_calculation          Int
+  pnl_consolidation         Boolean
+  pnl_in_crypto_trades      Boolean
+  one_time_in1888_delay_fee Boolean
+  company_id                Int             @unique
+  company                   account_company @relation(fields: [company_id], references: [id])
+  created_at                DateTime        @default(now())
+  updated_at                DateTime        @default(now())
 }

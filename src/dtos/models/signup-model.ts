@@ -24,6 +24,12 @@ export class SignUpModel{
     companyId: Number;
 
     @Field()
+    typeId: Number;
+
+    @Field()
+    hasCompletedOnboard: Boolean;
+
+    @Field()
     isActive: Boolean;
 
     @Field()

@@ -3,8 +3,6 @@ import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
 import "reflect-metadata";
 import { SignUpResolver } from "./resolvers/signup-resolver";
-import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import type { DocumentNode } from 'graphql';
 
 async function bootstrap() {
 
